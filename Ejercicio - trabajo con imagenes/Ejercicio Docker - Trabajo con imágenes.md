@@ -1,5 +1,5 @@
 ---
-title: Actividad 4.02 - Módulos Apache
+title: Ejercicio - trabajo con imágenes
 author: Javier Uría
 ---
 
