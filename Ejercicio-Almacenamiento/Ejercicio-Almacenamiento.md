@@ -14,7 +14,7 @@ cd saludo
 echo "<h1>Hola soy Jose Ramón</h1>" > index.html
 ```
 
-![image-20220118202931727](C:/Users/vespertino/AppData/Roaming/Typora/typora-user-images/image-20220118202931727.png)
+![image-20220118202931727](Ejercicio-Almacenamiento.assets/image-20220118202931727.png)
 
 ### Ejercicio 2
 
@@ -27,7 +27,7 @@ docker run -d --name c2 --mount type=bind,src=/home/jose/proyectoWeb/saludo,dst=
 curl http://localhost:8181
 ```
 
-![image-20220118205846351](C:/Users/vespertino/AppData/Roaming/Typora/typora-user-images/image-20220118205846351.png)
+![image-20220118205846351](Ejercicio-Almacenamiento.assets/image-20220118205846351.png)
 
 ![image-20220120175615457](Ejercicio-Almacenamiento.assets/image-20220120175615457.png)
 
