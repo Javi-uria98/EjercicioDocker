@@ -30,10 +30,8 @@ Pantallazos donde se vea el contenedor creado y en ejecución.
 Primero creamos el contenedor:
 
 ```bash
-docker run -d --name contenedor_mariadb -v mivolumen:/usr/local/apache2/htdocs -p 3036:80 --network redbd -e MYSQL_ROOT_PASSWORD=laboral1 mariadb
+docker run -d --name sql_mariadb -v data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -p 81:3306 -network redbd mariadb
 ```
-
-![](Ejercicio%20-%20redes.assets/002.PNG)
 
 Comprobamos que está en ejecución:
 
@@ -41,13 +39,25 @@ Comprobamos que está en ejecución:
 docker ps -a
 ```
 
-![](Ejercicio%20-%20redes.assets/003.PNG)
+![](Ejercicio%20-%20redes.assets/0300.png)
 
 ## Tarea 3.
 
-Crear un contenedor con `Adminer` que se pueda conectar al contenedor de la BD.
-
 Pantallazos donde se vea el contenedor creado y en ejecución.
+
+Creamos un contenedor con `Adminer` que se pueda conectar al contenedor de la BD.
+
+```bash
+docker run -d --rm --network redbd -e PMA_ARBIRARY=1 -p 80:80 adminer
+```
+
+Comprobamos que está en ejecución:
+
+```bash
+docker ps
+```
+
+![](Ejercicio%20-%20redes.assets/0301.png)
 
 Pantallazo donde se vea el acceso a la BD a través de la interfaz web de `Adminer`.
 
@@ -57,5 +67,29 @@ Pantallazo donde se entre a la consola del servidor web en modo texto y se compr
 
 Comprobar que el contenedor `Adminer` puede conectar con el contenedor *`mysql`* abriendo un navegador web y accediendo a la URL: http://localhost:8080.
 
-Borrar los contenedores la red y los volúmenes utilizados.
+Borrar los contenedores, la red y los volúmenes utilizados.
+
+Primero paramos el contenedor en ejecución y luego lo eliminamos. (Aquí podríamos optar por eliminar el contenedor y su volumen al mismo tiempo con la opción: `docker rm -v sql_mariadb`)
+
+```bash
+docker stop sql_mariadb
+docker rm sql_mariadb
+```
+
+Seguidamente eliminaremos el volumen. Podremos ver la lista de volúmenes existentes y elegir el que pertenece al contenedor.
+
+```bash
+docker volume ls
+docker rm data
+```
+
+
+
+Eliminaremos la red bridge creada:
+
+```bash
+docker network rm redbd
+```
+
+![](Ejercicio%20-%20redes.assets/0400.png)
 
