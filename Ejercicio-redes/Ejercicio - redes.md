@@ -30,16 +30,16 @@ Pantallazos donde se vea el contenedor creado y en ejecución.
 Primero creamos el contenedor:
 
 ```bash
-docker run -d --name sql_mariadb -v data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -p 81:3306 -network redbd mariadb
+docker run -d --name sql_mariadb -v /home/usuario/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -network redbd mariadb
 ```
 
 Comprobamos que está en ejecución:
 
 ```bash
-docker ps -a
+docker ps 
 ```
 
-![](Ejercicio%20-%20redes.assets/0300.png)
+![](Ejercicio%20-%20redes.assets/sql_mariadb.png)
 
 ## Tarea 3.
 
@@ -48,7 +48,7 @@ Pantallazos donde se vea el contenedor creado y en ejecución.
 Creamos un contenedor con `Adminer` que se pueda conectar al contenedor de la BD.
 
 ```bash
-docker run -d --rm --network redbd -e PMA_ARBIRARY=1 -p 80:80 adminer
+docker run -d --name c_adminer -p 8080:8080 --network redbd adminer
 ```
 
 Comprobamos que está en ejecución:
@@ -57,30 +57,46 @@ Comprobamos que está en ejecución:
 docker ps
 ```
 
-![](Ejercicio%20-%20redes.assets/0301.png)
+![](Ejercicio%20-%20redes.assets/c_adminer.png)
 
-Pantallazo donde se vea el acceso a la BD a través de la interfaz web de `Adminer`.
 
-Pantallazo donde se entre a la consola del servidor web en modo texto y se compruebe que se ha creado la BD.
 
 ## Tarea 4:
 
 Comprobar que el contenedor `Adminer` puede conectar con el contenedor *`mysql`* abriendo un navegador web y accediendo a la URL: http://localhost:8080.
 
+Pantallazo donde se vea el acceso a la BD a través de la interfaz web de `Adminer`.
+
+![](Ejercicio%20-%20redes.assets/acceso_BD_adminer.png)
+
+
+
+Accedemos a la BD del servidor en nuestro caso `sql_mariadb`
+
+![](Ejercicio%20-%20redes.assets/conexion_sql_mariadb.png)
+
+Pantallazo donde se entre a la consola del servidor web en modo texto y se compruebe que se ha creado la BD.
+
+![](Ejercicio%20-%20redes.assets/creacion_BD_adminer.png)
+
+
+
+
+
 Borrar los contenedores, la red y los volúmenes utilizados.
 
-Primero paramos el contenedor en ejecución y luego lo eliminamos. (Aquí podríamos optar por eliminar el contenedor y su volumen al mismo tiempo con la opción: `docker rm -v sql_mariadb`)
+Primero paramos los contenedores en ejecución y luego lo eliminamos. (Aquí podríamos optar por eliminar el contenedor y su volumen al mismo tiempo con la opción: `docker rm -v sql_mariadb`)
 
 ```bash
 docker stop sql_mariadb
-docker rm sql_mariadb
+docker stop c_adminer
 ```
 
-Seguidamente eliminaremos el volumen. Podremos ver la lista de volúmenes existentes y elegir el que pertenece al contenedor.
+Seguidamente eliminaremos los contenedores
 
 ```bash
-docker volume ls
-docker rm data
+docker -v rm sql_mariadb
+docker rm c_adminer
 ```
 
 
@@ -91,5 +107,7 @@ Eliminaremos la red bridge creada:
 docker network rm redbd
 ```
 
-![](Ejercicio%20-%20redes.assets/0400.png)
+
+
+![](Ejercicio%20-%20redes.assets/eliminacion_datos.png)
 
