@@ -55,6 +55,8 @@ curl http://localhost:8282
 
 ![image-20220127175649955](Ejercicio-Almacenamiento.assets/image-20220127175649955.png)
 
+![image-20220127181146419](Ejercicio-Almacenamiento.assets/image-20220127181146419.png)
+
 ### Ejercicio 5
 
 Borra los contenedores utilizados.
